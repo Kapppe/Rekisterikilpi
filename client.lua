@@ -17,7 +17,7 @@ RegisterCommand("kilpipois", function()
         -- Client's coords
         local VehicleCoords = GetEntityCoords(Vehicle)
         -- Distance between client's ped and closest vehicle
-        local Distance = Vdist(VehicleCoords.x, VehicleCoords.y, VehicleCoords.z, Coords.x, Coords.y, Coords.z)
+        local Distance = #(VehicleCoords - Coords)
         -- If within range and Ped is in a vehicle
         if Distance < 3.5 and not IsPedInAnyVehicle(PlayerPed, false) then
             --Saves the last vehicle
@@ -37,12 +37,10 @@ RegisterCommand("kilpipois", function()
         else
             -- Notification
 			 exports["mythic_notify"]:SendAlert("error", "Ei ajoneuvoa lähettyvillä.")-- Mythic_Notification
-		--	TriggerEvent('tac:showNotification', '~r~ No vehicle nearby.')
         end
     else
         -- Notification
 		 exports["mythic_notify"]:SendAlert("error", "Sinulla on jo kilpi kiinni.") --Mythic_Notification
-	--	TriggerEvent('tac:showNotification', '~r~ You do not have a licence plate on you.')
     end
 end)
 
@@ -59,7 +57,7 @@ RegisterCommand("kilpikiinni", function()
         -- Client's coords
         local VehicleCoords = GetEntityCoords(Vehicle)
         -- Distance between client's ped and closest vehicle
-        local Distance = Vdist(VehicleCoords.x, VehicleCoords.y, VehicleCoords.z, Coords.x, Coords.y, Coords.z)
+        local Distance = #(VehicleCoords - Coords)
         -- If within range and Ped is in a vehicle
         if ( (Distance < 3.5) and not IsPedInAnyVehicle(PlayerPed, false) ) then
 		if (Vehicle == LastVehicle) then
@@ -81,17 +79,14 @@ RegisterCommand("kilpikiinni", function()
 		else
 			-- Notification
 			 exports["mythic_notify"]:SendAlert("error", "Tämä kilpi ei kuulu tähän ajoneuvoon")
-		--	TriggerEvent('tac:showNotification', '~r~ This plate does not belong here')
 		end
         else
             -- Notification
 		     exports["mythic_notify"]:SendAlert("error", "Ei ajoneuvoa lähettyvillä.") 
-		--	TriggerEvent('tac:showNotification', '~r~ No vehicle nearby.')
         end
     else
         -- Notification
 		 exports["mythic_notify"]:SendAlert("error", "Sinulla ei ole kilpeä kiinni.")-- Mythic_Notification
-	--	TriggerEvent('tac:showNotification', '~r~ You do not have a licence plate on you.')
     end
 end)
 
